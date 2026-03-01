@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Monthly Exam — Grades 1 to 12</title>
+    <style>
+      h1 {
+        color: #33eb25;
+        font-weight: 700;
+        font-size: 50px;
+      }
+      .survey {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 30px;
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
+        text-align: center;
+      }
+
+      .survey h2 {
+        margin-top: 0;
+        font-size: 1.4rem;
+        color: #111827;
+      }
+
+      .survey p {
+        font-size: 1rem;
+        color: var(--muted);
+        margin: 18px 0 28px;
+        line-height: 1.6;
+      }
+
+      :root {
+        --bg: #f3f6fb;
+        --card: #ffffff;
+        --accent: #33eb25;
+        --accent-2: #06b6d4;
+        --muted: #6b7280;
+        --radius: 12px;
+        --gap: 18px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial;
+        background: linear-gradient(180deg, var(--bg), #e9f0ff 200px);
+        min-height: 100vh;
+        padding: 36px;
+        color: #111827;
+      }
+
+      header {
+        max-width: 1100px;
+        margin: 0 auto 22px;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0 0 6px;
+        font-size: 1.5rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .grid-wrap {
+        max-width: 1100px;
+        margin: 20px auto 0;
+        display: grid;
+        gap: var(--gap);
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+
+      /* responsive columns */
+      @media (min-width: 520px) {
+        .grid-wrap {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 840px) {
+        .grid-wrap {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (min-width: 1200px) {
+        .grid-wrap {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 18px;
+        box-shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
+        min-height: 170px;
+      }
+      .card:focus-within,
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(17, 24, 39, 0.12);
+      }
+
+      .grade-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(90deg, #a3bb8f, var(--accent-2));
+        padding: 8px 12px;
+        border-radius: 999px;
+        width: fit-content;
+        font-size: 0.95rem;
+      }
+
+      .card h2 {
+        margin: 0;
+        font-size: 1.15rem;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+        flex: 1 1 auto;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      .btn {
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: var(--accent);
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12);
+        transition:
+          transform 0.12s ease,
+          opacity 0.12s ease;
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn.secondary {
+        background: transparent;
+        color: var(--accent);
+        border: 1px solid rgba(37, 99, 235, 0.12);
+        box-shadow: none;
+        font-weight: 600;
+      }
+
+      /* small helper */
+      .note {
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-top: 14px;
+      }
+
+      /* accessible focus ring */
+      a:focus {
+        outline: 3px solid rgba(37, 99, 235, 0.18);
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Monthly Exam — Grades 1 to 12</h1>
+      <p>
+        Select your grade and click <strong>Start Test</strong>. Each opens in a
+        new tab.
+      </p>
+    </header>
+
+    <main class="grid-wrap" id="grid" aria-live="polite">
+      <!-- Cards will be generated here by JavaScript -->
+    </main>
+
+    <script>
+      // ----- EDIT THIS: Put your 12 form URLs and unique codes here -----
+      const forms = [
+        { grade: 1, url: "https://forms.gle/YP1MgMdNKKoWyqq99", code: "G1" },
+        { grade: 2, url: "https://forms.gle/o2fmymFgvj7wJGQW8", code: "2222" },
+        { grade: 3, url: "https://forms.gle/TFvjEQJ7hDaNrFj46", code: "3333" },
+        { grade: 4, url: "https://forms.gle/Mh69wQj6DH6JrzFa8", code: "4444" },
+        { grade: 5, url: "https://forms.gle/ZyCTL377ByeWQ2JD8", code: "5555" },
+        { grade: 6, url: "https://forms.gle/KQka6pyxd5sWG7X6A", code: "6666" },
+        { grade: 7, url: "https://forms.gle/5j6UbYGBepgaizvZ6", code: "7777" },
+        { grade: 8, url: "https://forms.gle/kVSuqofVu4GQDnCm6", code: "8888" },
+        { grade: 9, url: "https://forms.gle/pGMq9iGH9xUSPQvFA", code: "9999" },
+        { grade: 10, url: "https://forms.gle/i2MnbfUnvjdpYTVN7", code: "1010" },
+        { grade: 11, url: "https://forms.gle/7V4zyzUwhfmdTaBt8", code: "1111" },
+        { grade: 12, url: "https://forms.gle/Vp3WK6TZxDhw5FVdA", code: "1212" },
+      ];
+
+      const grid = document.getElementById("grid");
+
+      // Function to handle secret code per grade
+      function handleSecretCode(url, gradeCode) {
+        const input = prompt(
+          "🔐 Enter your grade secret code to start the exam:",
+        );
+        if (input === gradeCode) {
+          window.open(url, "_blank");
+        } else {
+          alert("❌ Wrong code. You cannot access this exam!");
+        }
+      }
+
+      // Create card element for each grade
+      forms.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.setAttribute("aria-label", `Grade ${item.grade} exam card`);
+
+        card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <div class="grade-badge">Grade ${item.grade}</div>
+        <div style="font-size:0.85rem;color:var(--muted)">Duration: 15 min</div>
+      </div>
+
+      <h2>Grade ${item.grade} — ICT Test</h2>
+      <p>Click the button below to open the exam for Grade ${item.grade}. Answers will be submitted on the form.</p>
+
+      <div class="actions" role="group" aria-label="Grade ${item.grade} actions">
+        <a class="btn start-btn" href="#">Start Exam ↗</a>
+        <a class="btn secondary start-btn" href="#">Open</a>
+      </div>
+    `;
+
+        // Attach click event to check secret code for this grade
+        card.querySelectorAll(".start-btn").forEach((btn) => {
+          if (item.url && item.url !== "") {
+            btn.addEventListener("click", (e) => {
+              e.preventDefault();
+              handleSecretCode(item.url, item.code);
+            });
+          } else {
+            btn.addEventListener("click", (e) => {
+              e.preventDefault();
+              alert(
+                "No exam link set for this grade. Edit the forms array in index.html to add the URL.",
+              );
+            });
+          }
+        });
+
+        grid.appendChild(card);
+      });
+    </script>
+  </body>
+</html>
