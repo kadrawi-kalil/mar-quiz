@@ -1,0 +1,110 @@
+function createGrade3Quiz() {
+  // Create the quiz
+  var form = FormApp.create('Grade 3 Quiz – Excel & Data Basics')
+    .setIsQuiz(true)
+    .setTitle('Grade 3 Quiz – Excel & Data Basics')
+    .setDescription('Answer all questions carefully. Each question is worth 1 point.');
+
+  // Student Name
+  form.addTextItem()
+    .setTitle('Student Name')
+    .setRequired(true);
+
+  // Class
+  form.addTextItem()
+    .setTitle('Class')
+    .setRequired(false);
+
+  // =========================
+  // Helper: Multiple Choice
+  // =========================
+  function addMCQ(title, choices, correctIndex) {
+    var item = form.addMultipleChoiceItem();
+    item.setTitle(title)
+        .setChoices(choices.map(function(choice, i) {
+          return item.createChoice(choice, i === correctIndex);
+        }))
+        .setRequired(true)
+        .setPoints(1);
+  }
+
+  // =========================
+  // Helper: True / False
+  // =========================
+  function addTrueFalse(title, correctAnswer) {
+    var item = form.addMultipleChoiceItem();
+    item.setTitle(title)
+        .setChoices([
+          item.createChoice("True", correctAnswer === true),
+          item.createChoice("False", correctAnswer === false)
+        ])
+        .setRequired(true)
+        .setPoints(1);
+  }
+
+  // =========================
+  // Multiple Choice Questions
+  // =========================
+
+  addMCQ(
+    "Q1. What is the process of examining information to find patterns called?",
+    ["Data Analysis", "Drawing"],
+    0
+  );
+
+  addMCQ(
+    "Q2. Which Excel tool is like a 'toy organizer' for messy data?",
+    ["Text Box", "PivotTable"],
+    1
+  );
+
+  addMCQ(
+    "Q3. How do you start creating a PivotTable?",
+    ["Home Tab", "Insert Tab"],
+    1
+  );
+
+  addMCQ(
+    "Q4. Which rule can highlight scores above 80?",
+    ["Greater Than", "Equal To"],
+    0
+  );
+
+  addMCQ(
+    "Q5. What is the benefit of using colors in Excel?",
+    ["It makes data easier to understand", "It deletes wrong numbers"],
+    0
+  );
+
+  // =========================
+  // True / False Questions
+  // =========================
+
+  addTrueFalse(
+    "Q6. PivotTables help you sort names alphabetically.",
+    false
+  );
+
+  addTrueFalse(
+    "Q7. Data analysis is only used for science projects.",
+    false
+  );
+
+  addTrueFalse(
+    "Q8. You can use Excel to find which fruit is most liked in class.",
+    true
+  );
+
+  addTrueFalse(
+    "Q9. A PivotTable makes information harder to read.",
+    false
+  );
+
+  addTrueFalse(
+    "Q10. You can make cells turn red if a number is greater than 10.",
+    true
+  );
+
+  Logger.log('Form URL: ' + form.getEditUrl());
+  Logger.log('Quiz (student link): ' + form.getPublishedUrl());
+}
